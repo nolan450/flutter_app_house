@@ -12,10 +12,12 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MyMqtt {
 
-  final client = MqttServerClient('localhost', '');
+  final client = MqttServerClient.withPort('c481edae58bf457888d878308efb9ae0.s1.eu.hivemq.cloud', '', 8883);
 
   var pongCount = 0; // Pong counter
   var pingCount = 0; // Ping counter
+  var username = "connectHouse";
+  var password = "Azerty1234";
 
 
 Future<int> test() async {
@@ -69,6 +71,7 @@ Future<int> test() async {
   /// an example of a specific one below.
   final connMess = MqttConnectMessage()
       .withClientIdentifier('Mqtt_MyClientUniqueId')
+      .authenticateAs(username, password)
       .withWillTopic('willtopic') // If you set this you must set a will message
       .withWillMessage('My Will message')
       .startClean() // Non persistent session for testing
