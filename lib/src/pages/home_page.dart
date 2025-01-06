@@ -18,7 +18,8 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     DashboardPage(), // Page pour le monitoring
     ControlPage(),   // Page pour le contrôle
-    AlertsPage(),    // Page pour les alertes
+    const MqttMessageScreen(),
+    //AlertsPage(),    // Page pour les alertes
     SettingsPage(),  // Page pour les paramètres
   ];
 

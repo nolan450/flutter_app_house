@@ -6,7 +6,7 @@ class DashboardPage extends StatelessWidget {
     return const Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Text('Température : 22°C'),
           Text('Humidité : 60%'),
           Text('Gaz détecté : Non'),

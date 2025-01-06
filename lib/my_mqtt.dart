@@ -12,12 +12,12 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MyMqtt {
 
-  final client = MqttServerClient.withPort('c481edae58bf457888d878308efb9ae0.s1.eu.hivemq.cloud', '', 8883);
+  final client = MqttServerClient.withPort('0d773a1094b84a4a982ea09b1ded8ae9.s1.eu.hivemq.cloud', '', 8883);
 
   var pongCount = 0; // Pong counter
   var pingCount = 0; // Ping counter
-  var username = "connectHouse";
-  var password = "Azerty1234";
+  var username = "nolan";
+  var password = "Test97450";
 
 
 Future<int> test() async {
@@ -35,6 +35,8 @@ Future<int> test() async {
 
   /// Set logging on if needed, defaults to off
   client.logging(on: false);
+
+  client.secure = true;
 
   /// Set the correct MQTT protocol for mosquito
   client.setProtocolV311();

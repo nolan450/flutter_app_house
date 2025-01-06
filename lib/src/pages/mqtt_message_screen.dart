@@ -20,7 +20,7 @@ class _MqttMessageScreenState extends State<MqttMessageScreen> {
     super.initState();
 
     // on s'arrete ici
-    return;
+    //return;
     // Initialiser MQTT et écouter les messages
     myMqtt.test();
 
