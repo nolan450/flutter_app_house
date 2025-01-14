@@ -76,6 +76,7 @@ Future<int> test() async {
       .withWillMessage('My Will message')
       .startClean() // Non persistent session for testing
       .withWillQos(MqttQos.atLeastOnce);
+  
   print('EXAMPLE::Mosquitto client connecting....');
   client.connectionMessage = connMess;
 
@@ -115,20 +116,14 @@ Future<int> test() async {
   /// In general you should listen here as soon as possible after connecting, you will not receive any
   /// publish messages until you do this.
   /// Also you must re-listen after disconnecting.
-  client.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
-    final recMess = c![0].payload as MqttPublishMessage;
-    final pt =
-        MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+ client.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
+  final recMess = c![0].payload as MqttPublishMessage;
+  final message = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+    
+    print('Message reçu: $message');
+  // Vous pouvez mettre à jour votre UI avec les données ici
+});
 
-    /// The above may seem a little convoluted for users only interested in the
-    /// payload, some users however may be interested in the received publish message,
-    /// lets not constrain ourselves yet until the package has been in the wild
-    /// for a while.
-    /// The payload is a byte buffer, this will be specific to the topic
-    print(
-        'EXAMPLE::Change notification:: topic is <${c[0].topic}>, payload is <-- $pt -->');
-    print('');
-  });
 
   /// If needed you can listen for published messages that have completed the publishing
   /// handshake which is Qos dependant. Any message received on this stream has completed its
@@ -144,7 +139,8 @@ Future<int> test() async {
   const pubTopic = 'Dart/Mqtt_client/testtopic';
   const pubTopic2 = 'LED2';
   final builder = MqttClientPayloadBuilder();
-  builder.addString('Hello from mqtt_client');
+  builder.addString('Commande vers Arduino');
+  client.publishMessage('LED2', MqttQos.atMostOnce, builder.payload!);
 
   /// Subscribe to it
   print('EXAMPLE::Subscribing to the Dart/Mqtt_client/testtopic topic');
